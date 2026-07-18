@@ -1,18 +1,11 @@
 
-import kedarnath from "../assets/temples/kedarnath.jpg";
-import badrinath from "../assets/temples/badrinath.jpg";
-import somnath from "../assets/temples/somnath.jpg";
-import tirupati from "../assets/temples/tirupati.jpg";
-import kashi from "../assets/temples/kashi-vishwanath.jpg";
-import mahakaleshwar from "../assets/temples/mahakaleshwar.jpg";
-
 const featuredTemples = [
   {
     id: 1,
     name: "Kedarnath Temple",
     state: "Uttarakhand",
     deity: "Lord Shiva",
-    image: kedarnath,
+    image: "/temples/kedarnath.jpg",
     category: "Jyotirlinga",
   },
   {
@@ -20,7 +13,7 @@ const featuredTemples = [
     name: "Badrinath Temple",
     state: "Uttarakhand",
     deity: "Lord Vishnu",
-    image: badrinath,
+    image: "/temples/badrinath.jpg",
     category: "Char Dham",
   },
   {
@@ -28,7 +21,7 @@ const featuredTemples = [
     name: "Somnath Temple",
     state: "Gujarat",
     deity: "Lord Shiva",
-    image: somnath,
+    image: "/temples/somnath.jpg",
     category: "Jyotirlinga",
   },
   {
@@ -36,7 +29,7 @@ const featuredTemples = [
     name: "Tirupati Balaji",
     state: "Andhra Pradesh",
     deity: "Lord Venkateswara",
-    image: tirupati,
+    image: "/temples/tirupati.jpg",
     category: "Divya Desam",
   },
   {
@@ -44,7 +37,7 @@ const featuredTemples = [
     name: "Kashi Vishwanath",
     state: "Uttar Pradesh",
     deity: "Lord Shiva",
-    image: kashi,
+    image: "/temples/kashi-vishwanath.jpg",
     category: "Jyotirlinga",
   },
   {
@@ -52,7 +45,7 @@ const featuredTemples = [
     name: "Mahakaleshwar",
     state: "Madhya Pradesh",
     deity: "Lord Shiva",
-    image: mahakaleshwar,
+    image: "/temples/mahakaleshwar.jpg",
     category: "Jyotirlinga",
   },
 ];

@@ -1,17 +1,37 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllTemples } from "../services/templeService";
 import { motion } from "framer-motion";
 
 import MainLayout from "../layouts/MainLayout";
 import TempleCard from "../components/TempleCard";
 import TempleFilters from "../components/TempleFilters";
-import templesData from "../data/temples";
 
 const Temples = () => {
+  const [templesData, setTemplesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  // Fetch temples from backend
+  useEffect(() => {
+    const fetchTemples = async () => {
+      try {
+        const data = await getAllTemples();
+setTemplesData(data);
+      } catch (error) {
+        console.error("Error fetching temples:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTemples();
+  }, []);
+
+  // Filter temples
   const filteredTemples = templesData.filter((temple) => {
     const matchesSearch =
       temple.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -28,10 +48,21 @@ const Temples = () => {
     return matchesSearch && matchesState && matchesCategory;
   });
 
+  if (loading) {
+    return (
+      <MainLayout>
+        <div className="min-h-screen flex items-center justify-center bg-slate-950">
+          <h2 className="text-white text-2xl font-bold">
+            Loading Temples...
+          </h2>
+        </div>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
       <section className="min-h-screen bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] py-20">
-
         <div className="max-w-7xl mx-auto px-6">
 
           {/* Heading */}
@@ -41,7 +72,6 @@ const Temples = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-
             <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
               Explore
             </span>
@@ -55,7 +85,6 @@ const Temples = () => {
               divine traditions, pilgrimage routes and timeless
               spiritual heritage.
             </p>
-
           </motion.div>
 
           {/* Filters */}
@@ -73,12 +102,10 @@ const Temples = () => {
           {/* Temple Count */}
 
           <div className="flex justify-between items-center mb-10">
-
             <h2 className="text-white text-xl font-semibold">
               {filteredTemples.length} Temple
               {filteredTemples.length > 1 ? "s" : ""} Found
             </h2>
-
           </div>
 
           {/* Temple Grid */}
@@ -87,22 +114,18 @@ const Temples = () => {
             layout
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-
             {filteredTemples.map((temple) => (
               <TempleCard
-                key={temple.id}
+                key={temple._id}
                 temple={temple}
               />
             ))}
-
           </motion.div>
 
           {/* Empty State */}
 
           {filteredTemples.length === 0 && (
-
             <div className="text-center py-24">
-
               <h2 className="text-3xl text-white font-bold">
                 No Temple Found
               </h2>
@@ -110,13 +133,10 @@ const Temples = () => {
               <p className="text-gray-400 mt-4">
                 Try changing your search or filters.
               </p>
-
             </div>
-
           )}
 
         </div>
-
       </section>
     </MainLayout>
   );

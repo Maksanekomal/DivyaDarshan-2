@@ -6,12 +6,11 @@ const TempleHero = ({ temple }) => {
   return (
     <section className="relative h-[70vh] overflow-hidden">
 
-      <img
-        src={temple.image}
-        alt={temple.name}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-
+     <img
+  src={`/temples/${temple.image}`}
+  alt={temple.name}
+  className="absolute inset-0 w-full h-full object-cover"
+/>
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/40"></div>
 
       <motion.div
