@@ -8,6 +8,9 @@ import Festivals from "./pages/Festivals";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PilgrimageRoutesPage from "./pages/PilgrimageRoutes";
+import Dashboard from "./pages/Admin/Dashboard";
+import AddTemple from "./pages/Admin/AddTemple";
+import EditTemple from "./pages/Admin/EditTemple";
 
 
 function App() {
@@ -31,6 +34,10 @@ function App() {
           path="/temple/:id"
           element={<TempleDetails />}
         />
+
+        <Route path="/admin" element={<Dashboard />} />
+<Route path="/admin/add-temple" element={<AddTemple />} />
+<Route path="/admin/edit-temple/:id" element={<EditTemple />} />
         
 
       </Routes>
