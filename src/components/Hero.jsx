@@ -1,5 +1,7 @@
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   HiOutlineMagnifyingGlass,
   HiOutlineMapPin,
@@ -8,19 +10,32 @@ import { FaArrowRight } from "react-icons/fa";
 import heroImage from "../assets/images/hero.jpg";
 
 const popularTemples = [
-  "Kedarnath",
-  "Somnath",
-  "Tirupati",
-  "Mahakaleshwar",
-  "Kashi Vishwanath",
+  { name: "Kedarnath", id: "68648a526f93fb5c460578" },
+  { name: "Somnath", id: "68648a526f93fb5c460579" },
+  { name: "Tirupati", id: "68648a526f93fb5c460580" },
+  { name: "Mahakaleshwar", id: "68648a526f93fb5c460581" },
+  { name: "Kashi Vishwanath", id: "68648a526f93fb5c460582" },
 ];
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedState, setSelectedState] = useState("All States");
+
+  const handleSearch = () => {
+    if (searchTerm.trim() === "") {
+      navigate("/temples");
+    } else {
+      navigate(
+        `/temples?search=${encodeURIComponent(searchTerm)}&state=${encodeURIComponent(selectedState)}`
+      );
+    }
+  };
+
   return (
     <section className="relative min-h-[92vh] overflow-hidden">
 
       {/* Background Image */}
-
       <motion.img
         src={heroImage}
         alt="DivyaDarshan"
@@ -35,21 +50,15 @@ const Hero = () => {
       />
 
       {/* Dark Overlay */}
-
       <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/90 via-[#020617]/70 to-[#020617]/40"></div>
 
       {/* Decorative Glow */}
-
       <div className="absolute top-20 left-10 w-80 h-80 bg-orange-500/20 blur-[120px] rounded-full"></div>
-
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-yellow-500/10 blur-[150px] rounded-full"></div>
 
       {/* Hero Content */}
-
       <div className="relative z-10 flex items-center min-h-[92vh]">
-
         <div className="max-w-7xl mx-auto px-6 w-full">
-
           <div className="max-w-4xl">
 
             <motion.p
@@ -69,11 +78,9 @@ const Hero = () => {
             >
               Discover India's
               <br />
-
               <span className="text-orange-400">
                 Temple Heritage
               </span>
-
             </motion.h1>
 
             <motion.p
@@ -88,7 +95,6 @@ const Hero = () => {
             </motion.p>
 
             {/* Search Box */}
-
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
@@ -97,53 +103,46 @@ const Hero = () => {
             >
 
               {/* Search */}
-
               <div className="flex items-center flex-1 px-4">
-
                 <HiOutlineMagnifyingGlass className="text-2xl text-orange-600" />
-
                 <input
                   type="text"
                   placeholder="Search Temple, City or Deity..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 px-4 py-4 outline-none bg-transparent text-gray-700"
                 />
-
               </div>
 
               {/* State */}
-
               <div className="flex items-center border rounded-xl px-4">
-
                 <HiOutlineMapPin className="text-orange-600 mr-2" />
-
-                <select className="py-4 outline-none bg-transparent text-gray-700">
-
+                <select
+                  value={selectedState}
+                  onChange={(e) => setSelectedState(e.target.value)}
+                  className="py-4 outline-none bg-transparent text-gray-700"
+                >
                   <option>All States</option>
                   <option>Maharashtra</option>
                   <option>Uttarakhand</option>
                   <option>Tamil Nadu</option>
                   <option>Gujarat</option>
                   <option>Uttar Pradesh</option>
-
                 </select>
-
               </div>
 
               {/* Search Button */}
-
               <button
+                onClick={handleSearch}
                 className="bg-orange-600 hover:bg-orange-700 hover:scale-105 active:scale-95 transition-all duration-300 text-white px-10 rounded-xl font-semibold flex items-center justify-center gap-3"
               >
                 Search
-
                 <FaArrowRight />
-
               </button>
 
             </motion.div>
 
             {/* Popular Searches */}
-
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -152,30 +151,24 @@ const Hero = () => {
             >
 
               <p className="text-gray-300 mb-4 font-medium">
-
                 Popular Searches
-
               </p>
 
               <div className="flex flex-wrap gap-4">
-
                 {popularTemples.map((temple) => (
-
                   <button
-                    key={temple}
+                    key={temple.id}
+                    onClick={() => navigate(`/temple/${temple.id}`)}
                     className="px-5 py-2 rounded-full border border-orange-500 text-orange-300 hover:bg-orange-600 hover:text-white transition duration-300"
                   >
-                    {temple}
+                    {temple.name}
                   </button>
-
                 ))}
-
               </div>
 
             </motion.div>
 
             {/* CTA */}
-
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -183,28 +176,27 @@ const Hero = () => {
               className="flex flex-wrap gap-5 mt-10"
             >
 
-              <button className="bg-orange-600 hover:bg-orange-700 px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition duration-300 shadow-xl">
-
+              <button
+                onClick={() => navigate("/temples")}
+                className="bg-orange-600 hover:bg-orange-700 px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition duration-300 shadow-xl"
+              >
                 Explore Temples
-
               </button>
 
-              <button className="border border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-black transition duration-300">
-
+              <button
+                onClick={() => navigate("/routes")}
+                className="border border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-black transition duration-300"
+              >
                 View Pilgrimage Routes
-
               </button>
 
             </motion.div>
 
           </div>
-
         </div>
-
       </div>
 
       {/* Scroll Indicator */}
-
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
 
         <motion.div

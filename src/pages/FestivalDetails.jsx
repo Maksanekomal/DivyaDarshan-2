@@ -1,20 +1,34 @@
 
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
-import festivals from "../data/festivals";
+import { getAllFestivals } from "../services/festivalService";
 import { FaCalendarAlt, FaPlaceOfWorship, FaArrowLeft } from "react-icons/fa";
 
 const FestivalDetails = () => {
   const { id } = useParams();
+  const [festival, setFestival] = useState(null);
 
-  const festival = festivals.find((item) => item.id === Number(id));
+  useEffect(() => {
+    const fetchFestival = async () => {
+      try {
+        const data = await getAllFestivals();
+        const selectedFestival = data.find((item) => item._id === id);
+        setFestival(selectedFestival);
+      } catch (error) {
+        console.error("Error fetching festival:", error);
+      }
+    };
+
+    fetchFestival();
+  }, [id]);
 
   if (!festival) {
     return (
       <MainLayout>
         <div className="min-h-screen bg-slate-950 flex items-center justify-center">
           <h1 className="text-white text-5xl font-bold">
-            Festival Not Found
+            Loading Festival...
           </h1>
         </div>
       </MainLayout>
@@ -26,13 +40,15 @@ const FestivalDetails = () => {
       <div className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] min-h-screen">
 
         {/* Hero */}
-
         <div className="relative h-[70vh]">
 
           <img
-            src={festival.image}
+            src={`/festivals/${festival.image}`}
             alt={festival.name}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = "/festivals/default.jpg";
+            }}
           />
 
           <div className="absolute inset-0 bg-black/60"></div>

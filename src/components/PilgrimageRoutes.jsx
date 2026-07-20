@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { FaArrowRight, FaMapMarkedAlt, FaCalendarAlt } from "react-icons/fa";
 import { getAllRoutes } from "../services/routeService";
 
@@ -86,10 +87,13 @@ const PilgrimageRoutes = () => {
                     <span>{route.duration}</span>
                   </div>
 
-                  <button className="mt-8 flex items-center gap-2 text-orange-500 font-semibold group-hover:gap-4 transition-all">
+                  <Link
+                    to={`/route/${route._id}`}
+                    className="mt-8 inline-flex items-center gap-2 text-orange-500 font-semibold hover:gap-4 transition-all"
+                  >
                     Explore Route
                     <FaArrowRight />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
