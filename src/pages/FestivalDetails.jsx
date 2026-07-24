@@ -1,34 +1,22 @@
 
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
-import { getAllFestivals } from "../services/festivalService";
+import festivals from "../data/festivals";
 import { FaCalendarAlt, FaPlaceOfWorship, FaArrowLeft } from "react-icons/fa";
 
 const FestivalDetails = () => {
   const { id } = useParams();
-  const [festival, setFestival] = useState(null);
 
-  useEffect(() => {
-    const fetchFestival = async () => {
-      try {
-        const data = await getAllFestivals();
-        const selectedFestival = data.find((item) => item._id === id);
-        setFestival(selectedFestival);
-      } catch (error) {
-        console.error("Error fetching festival:", error);
-      }
-    };
-
-    fetchFestival();
-  }, [id]);
+  const festival = festivals.find(
+    (item) => item.id.toString() === id
+  );
 
   if (!festival) {
     return (
       <MainLayout>
         <div className="min-h-screen bg-slate-950 flex items-center justify-center">
           <h1 className="text-white text-5xl font-bold">
-            Loading Festival...
+            Festival not found
           </h1>
         </div>
       </MainLayout>
@@ -38,23 +26,16 @@ const FestivalDetails = () => {
   return (
     <MainLayout>
       <div className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] min-h-screen">
-
-        {/* Hero */}
         <div className="relative h-[70vh]">
-
           <img
-            src={`/festivals/${festival.image}`}
+            src={festival.image}
             alt={festival.name}
             className="w-full h-full object-cover"
-            onError={(e) => {
-              e.target.src = "/festivals/default.jpg";
-            }}
           />
 
           <div className="absolute inset-0 bg-black/60"></div>
 
           <div className="absolute bottom-14 left-10">
-
             <span className="bg-orange-600 px-5 py-2 rounded-full text-white">
               {festival.month}
             </span>
@@ -62,71 +43,42 @@ const FestivalDetails = () => {
             <h1 className="text-6xl font-bold text-white mt-5">
               {festival.name}
             </h1>
-
           </div>
-
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-16">
-
           <div className="grid md:grid-cols-2 gap-8 mb-14">
-
             <div className="bg-slate-900 rounded-3xl p-8">
-
               <FaCalendarAlt className="text-3xl text-orange-500 mb-5" />
-
-              <h3 className="text-white text-2xl font-semibold">
-                Month
-              </h3>
-
-              <p className="text-gray-400 mt-3">
-                {festival.month}
-              </p>
-
+              <h3 className="text-white text-2xl font-semibold">Month</h3>
+              <p className="text-gray-400 mt-3">{festival.month}</p>
             </div>
 
             <div className="bg-slate-900 rounded-3xl p-8">
-
               <FaPlaceOfWorship className="text-3xl text-orange-500 mb-5" />
-
-              <h3 className="text-white text-2xl font-semibold">
-                Main Temples
-              </h3>
-
-              <p className="text-gray-400 mt-3">
-                {festival.temple}
-              </p>
-
+              <h3 className="text-white text-2xl font-semibold">Main Temples</h3>
+              <p className="text-gray-400 mt-3">{festival.temple}</p>
             </div>
-
           </div>
 
           <div className="space-y-10">
-
             <div>
-
               <h2 className="text-4xl text-orange-500 font-bold">
                 About Festival
               </h2>
-
               <p className="text-gray-300 leading-8 mt-5">
                 {festival.description}
               </p>
-
             </div>
 
             <div>
-
               <h2 className="text-4xl text-orange-500 font-bold">
                 Religious Significance
               </h2>
-
               <p className="text-gray-300 leading-8 mt-5">
                 {festival.significance}
               </p>
-
             </div>
-
           </div>
 
           <Link
@@ -136,9 +88,7 @@ const FestivalDetails = () => {
             <FaArrowLeft />
             Back to Festivals
           </Link>
-
         </div>
-
       </div>
     </MainLayout>
   );

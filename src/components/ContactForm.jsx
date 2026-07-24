@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ const ContactForm = () => {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,17 +20,34 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Thank you! Your message has been received.");
+    setLoading(true);
 
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    try {
+      await axios.post(
+        "http://localhost:5000/api/contact",
+        formData
+      );
+
+      alert("Message sent successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+          "Something went wrong."
+      );
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -35,7 +55,6 @@ const ContactForm = () => {
       <div className="max-w-4xl mx-auto px-6">
 
         <div className="text-center mb-12">
-
           <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
             Send Message
           </span>
@@ -48,7 +67,6 @@ const ContactForm = () => {
             Have a question or suggestion? Fill out the form below and we'll
             get back to you.
           </p>
-
         </div>
 
         <motion.form
@@ -105,9 +123,10 @@ const ContactForm = () => {
 
           <button
             type="submit"
-            className="mt-8 w-full bg-orange-600 hover:bg-orange-700 transition py-4 rounded-xl text-white font-semibold text-lg"
+            disabled={loading}
+            className="mt-8 w-full bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 transition py-4 rounded-xl text-white font-semibold text-lg"
           >
-            Send Message
+            {loading ? "Sending..." : "Send Message"}
           </button>
 
         </motion.form>
