@@ -1,16 +1,237 @@
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f8fafc;
+/* =======================================================
+   BASE
+======================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  transition: background-color .35s ease, color .35s ease;
+}
+
+html.dark body {
   background: #020617;
+  color: #f8fafc;
+}
+
+/* =======================================================
+   TYPOGRAPHY
+======================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .3s ease;
+}
+
+/* =======================================================
+   SELECTION
+======================================================= */
+
+::selection {
+  background: #f97316;
+  color: white;
+}
+
+/* =======================================================
+   SCROLLBAR
+======================================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #f97316;
+}
+
+/* =======================================================
+   FOCUS
+======================================================= */
+
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 3px;
+}
+
+/* =======================================================
+   REUSABLE THEME CLASSES
+======================================================= */
+
+/* Page */
+
+.page-bg {
+  @apply bg-white dark:bg-slate-950;
+}
+
+/* Alternate Section */
+
+.section-bg {
+  @apply bg-slate-50 dark:bg-slate-900;
+}
+
+/* Cards */
+
+.card-bg {
+  @apply bg-white dark:bg-slate-900;
+}
+
+.card-border {
+  @apply border border-slate-200 dark:border-slate-800;
+}
+
+.card-shadow {
+  @apply shadow-lg hover:shadow-2xl transition-all duration-300;
+}
+
+/* Glass Effect */
+
+.glass-card {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xl;
+}
+
+/* Headings */
+
+.heading {
+  @apply text-slate-900 dark:text-white;
+}
+
+.sub-heading {
+  @apply text-slate-700 dark:text-slate-200;
+}
+
+/* Paragraph */
+
+.text-muted {
+  @apply text-slate-600 dark:text-slate-400;
+}
+
+/* Icons */
+
+.icon-bg {
+  @apply bg-orange-100 dark:bg-orange-500/10;
+}
+
+.icon-color {
+  @apply text-orange-600 dark:text-orange-500;
+}
+
+/* Orange Badge */
+
+.badge-orange {
+  @apply inline-flex items-center rounded-full bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-500 px-4 py-2 font-semibold;
+}
+
+/* Buttons */
+
+.btn-primary {
+  @apply bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl transition duration-300;
+}
+
+.btn-outline {
+  @apply border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 rounded-xl transition duration-300;
+}
+
+/* Inputs */
+
+.input-theme {
+  @apply bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-500;
+}
+
+/* Navbar */
+
+.nav-bg {
+  @apply bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl;
+}
+
+/* Footer */
+
+.footer-bg {
+  @apply bg-slate-100 dark:bg-slate-950;
+}
+
+/* Hero Overlay */
+
+.hero-overlay {
+  @apply bg-gradient-to-r from-black/90 via-black/60 to-black/40;
+}
+
+/* Section Spacing */
+
+.section-padding {
+  @apply py-20;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-6;
+}
+
+/* Animation */
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-2;
+}
+
+.hover-orange {
+  @apply hover:border-orange-500/50;
 }

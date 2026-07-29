@@ -9,16 +9,16 @@ import {
 } from "react-icons/fa";
 
 import { getAllTemples } from "../services/templeService";
+import { useTheme } from "../context/ThemeContext";
 
 const FeaturedTemples = () => {
+  const { darkMode } = useTheme();
   const [temples, setTemples] = useState([]);
 
   useEffect(() => {
     const fetchTemples = async () => {
       try {
         const data = await getAllTemples();
-
-        // Show first 6 temples on Home page
         setTemples(data.slice(0, 6));
       } catch (error) {
         console.error("Error fetching featured temples:", error);
@@ -29,7 +29,11 @@ const FeaturedTemples = () => {
   }, []);
 
   return (
-    <section className="relative py-24 bg-[#020617] overflow-hidden">
+    <section
+      className={`relative py-24 overflow-hidden transition-colors duration-300 ${
+        darkMode ? "bg-slate-950" : "bg-gray-50"
+      }`}
+    >
       {/* Background Blur */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-orange-500/20 blur-[120px] rounded-full"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-500/10 blur-[150px] rounded-full"></div>
@@ -41,11 +45,19 @@ const FeaturedTemples = () => {
             Explore
           </span>
 
-          <h2 className="mt-4 text-4xl md:text-6xl font-bold text-white">
+          <h2
+            className={`mt-4 text-4xl md:text-6xl font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
             Featured Sacred Temples
           </h2>
 
-          <p className="mt-6 text-lg text-gray-400 max-w-3xl mx-auto leading-8">
+          <p
+            className={`mt-6 text-lg max-w-3xl mx-auto leading-8 ${
+              darkMode ? "text-gray-400" : "text-slate-600"
+            }`}
+          >
             Discover India's most famous temples, their rich history,
             architecture, festivals and spiritual importance.
           </p>
@@ -61,7 +73,11 @@ const FeaturedTemples = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
               whileHover={{ y: -12, scale: 1.02 }}
-              className="group bg-[#111827] rounded-3xl overflow-hidden border border-slate-700 hover:border-orange-500 transition-all duration-500 shadow-2xl"
+              className={`group rounded-3xl overflow-hidden border transition-all duration-500 shadow-2xl ${
+                darkMode
+                  ? "bg-slate-900 border-slate-700 hover:border-orange-500"
+                  : "bg-white border-gray-200 hover:border-orange-500"
+              }`}
             >
               {/* Image */}
               <div className="relative overflow-hidden">
@@ -83,16 +99,28 @@ const FeaturedTemples = () => {
 
               {/* Content */}
               <div className="p-7">
-                <h3 className="text-2xl font-bold text-white">
+                <h3
+                  className={`text-2xl font-bold ${
+                    darkMode ? "text-white" : "text-slate-900"
+                  }`}
+                >
                   {temple.name}
                 </h3>
 
-                <div className="flex items-center gap-2 mt-5 text-gray-400">
+                <div
+                  className={`flex items-center gap-2 mt-5 ${
+                    darkMode ? "text-gray-400" : "text-slate-600"
+                  }`}
+                >
                   <FaMapMarkerAlt className="text-orange-500" />
                   <span>{temple.state}</span>
                 </div>
 
-                <div className="flex items-center gap-2 mt-3 text-gray-400">
+                <div
+                  className={`flex items-center gap-2 mt-3 ${
+                    darkMode ? "text-gray-400" : "text-slate-600"
+                  }`}
+                >
                   <FaPlaceOfWorship className="text-orange-500" />
                   <span>{temple.deity}</span>
                 </div>

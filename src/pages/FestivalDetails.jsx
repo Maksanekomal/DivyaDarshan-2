@@ -1,22 +1,79 @@
 
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import {
+  FaCalendarAlt,
+  FaPlaceOfWorship,
+  FaArrowLeft,
+} from "react-icons/fa";
+
 import MainLayout from "../layouts/MainLayout";
-import festivals from "../data/festivals";
-import { FaCalendarAlt, FaPlaceOfWorship, FaArrowLeft } from "react-icons/fa";
+import { getFestivalById } from "../services/festivalService";
 
 const FestivalDetails = () => {
   const { id } = useParams();
 
-  const festival = festivals.find(
-    (item) => item.id.toString() === id
-  );
+  const [festival, setFestival] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchFestival = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const data = await getFestivalById(id);
+
+        setFestival(data);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load festival.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchFestival();
+    }
+  }, [id]);
+
+  if (loading) {
+    return (
+      <MainLayout>
+        <div className="min-h-screen flex items-center justify-center bg-slate-950">
+          <h2 className="text-white text-2xl font-bold">
+            Loading Festival...
+          </h2>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950 gap-6">
+          <h1 className="text-4xl font-bold text-red-500">{error}</h1>
+
+          <Link
+            to="/festivals"
+            className="bg-orange-600 hover:bg-orange-700 px-6 py-3 rounded-xl text-white"
+          >
+            Back to Festivals
+          </Link>
+        </div>
+      </MainLayout>
+    );
+  }
 
   if (!festival) {
     return (
       <MainLayout>
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-          <h1 className="text-white text-5xl font-bold">
-            Festival not found
+        <div className="min-h-screen flex items-center justify-center bg-slate-950">
+          <h1 className="text-5xl font-bold text-white">
+            Festival Not Found
           </h1>
         </div>
       </MainLayout>
@@ -28,9 +85,12 @@ const FestivalDetails = () => {
       <div className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] min-h-screen">
         <div className="relative h-[70vh]">
           <img
-            src={festival.image}
+            src={`/festivals/${festival.image}`}
             alt={festival.name}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = "/festivals/default.jpg";
+            }}
           />
 
           <div className="absolute inset-0 bg-black/60"></div>
@@ -56,7 +116,9 @@ const FestivalDetails = () => {
 
             <div className="bg-slate-900 rounded-3xl p-8">
               <FaPlaceOfWorship className="text-3xl text-orange-500 mb-5" />
-              <h3 className="text-white text-2xl font-semibold">Main Temples</h3>
+              <h3 className="text-white text-2xl font-semibold">
+                Main Temples
+              </h3>
               <p className="text-gray-400 mt-3">{festival.temple}</p>
             </div>
           </div>

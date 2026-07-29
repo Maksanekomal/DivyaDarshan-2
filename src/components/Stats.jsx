@@ -10,8 +10,11 @@ import {
 
 import { getAllTemples } from "../services/templeService";
 import { getAllFestivals } from "../services/festivalService";
+import { useTheme } from "../context/ThemeContext";
 
 const Stats = () => {
+  const { darkMode } = useTheme();
+
   const [stats, setStats] = useState({
     temples: 0,
     states: 0,
@@ -69,20 +72,33 @@ const Stats = () => {
   ];
 
   return (
-    <section className="bg-slate-950 py-20">
+    <section
+      className={`py-20 transition-all duration-300 ${
+        darkMode ? "bg-slate-950" : "bg-gray-50"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6">
-
+        {/* Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white">
+          <h2
+            className={`text-4xl font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
             DivyaDarshan at a Glance
           </h2>
 
-          <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+          <p
+            className={`mt-4 max-w-2xl mx-auto ${
+              darkMode ? "text-gray-400" : "text-slate-600"
+            }`}
+          >
             Your trusted platform for discovering India's sacred temples,
             pilgrimage routes, festivals, and cultural heritage.
           </p>
         </div>
 
+        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {cards.map((item, index) => (
             <motion.div
@@ -90,32 +106,43 @@ const Stats = () => {
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
+              transition={{ delay: index * 0.15 }}
               className="relative rounded-3xl overflow-hidden"
             >
               <div
                 className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-20`}
               />
 
-              <div className="relative bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center hover:scale-105 transition duration-300">
-
-                <div className="text-5xl text-orange-400 flex justify-center mb-5">
+              <div
+                className={`relative rounded-3xl p-8 text-center border transition-all duration-300 hover:scale-105 ${
+                  darkMode
+                    ? "bg-slate-900 border-slate-800"
+                    : "bg-white border-gray-200 shadow-xl"
+                }`}
+              >
+                <div className="text-5xl text-orange-500 flex justify-center mb-5">
                   {item.icon}
                 </div>
 
-                <h2 className="text-5xl font-bold text-white">
+                <h2
+                  className={`text-5xl font-bold ${
+                    darkMode ? "text-white" : "text-slate-900"
+                  }`}
+                >
                   {item.number}
                 </h2>
 
-                <p className="text-gray-400 mt-3">
+                <p
+                  className={`mt-3 ${
+                    darkMode ? "text-gray-400" : "text-slate-600"
+                  }`}
+                >
                   {item.title}
                 </p>
-
               </div>
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

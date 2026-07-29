@@ -20,8 +20,11 @@ const FestivalCard = ({ festival, index }) => {
       {/* Image */}
       <div className="relative overflow-hidden h-72">
         <img
-          src={festival.image}
+          src={`/festivals/${festival.image}`}
           alt={festival.name}
+          onError={(e) => {
+            e.target.src = "/festivals/default.jpg";
+          }}
           className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
         />
 
@@ -54,7 +57,7 @@ const FestivalCard = ({ festival, index }) => {
 
         {/* Learn More Button */}
         <Link
-          to={`/festival/${festival.id}`}
+          to={`/festival/${festival._id}`}
           className="mt-8 inline-flex items-center gap-3 text-orange-500 font-semibold hover:gap-5 transition-all"
         >
           Learn More

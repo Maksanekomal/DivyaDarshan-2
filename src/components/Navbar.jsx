@@ -1,22 +1,36 @@
 
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
 import { useState, useEffect } from "react";
 import SearchModal from "./SearchModal";
+import { useTheme } from "../context/ThemeContext";
+
 import {
   FaBars,
   FaTimes,
-  FaMoon,
   FaSearch,
   FaUserCircle,
+  FaMoon,
+  FaSun,
 } from "react-icons/fa";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+  const { darkMode, toggleTheme } = useTheme();
+
+  const [open, setOpen] =useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHome = location.pathname === "/";
 
   const isLoggedIn = !!localStorage.getItem("adminToken");
 
@@ -27,7 +41,8 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () =>
+      window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = () => {
@@ -45,77 +60,121 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
+  const navbarClass = scrolled
+    ? darkMode
+      ? "bg-slate-950/90 backdrop-blur-xl border-b border-slate-800 shadow-xl"
+      : "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-xl"
+    : isHome
+    ? "bg-transparent"
+    : darkMode
+    ? "bg-slate-950"
+    : "bg-white border-b border-slate-200";
+
+  const textClass =
+    isHome && !scrolled
+      ? "text-white"
+      : darkMode
+      ? "text-gray-300"
+      : "text-slate-700";
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-slate-950/80 backdrop-blur-xl border-b border-slate-800 shadow-lg"
-            : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${navbarClass}`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
+
             <NavLink
               to="/"
-              className="text-2xl font-bold text-white"
+              className={`text-2xl font-bold ${
+                isHome && !scrolled
+                  ? "text-white"
+                  : darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
             >
               🛕 <span className="text-orange-500">Divya</span>Darshan
             </NavLink>
 
             {/* Desktop Menu */}
+
             <nav className="hidden lg:flex items-center gap-8">
+
               {navItems.map((item) => (
                 <NavLink
                   key={item.name}
                   to={item.path}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-orange-500 transition"
-                      : "text-gray-300 hover:text-orange-500 transition"
+                      ? "text-orange-500 font-semibold"
+                      : `${textClass} hover:text-orange-500 transition`
                   }
                 >
                   {item.name}
                 </NavLink>
               ))}
+
             </nav>
 
-            {/* Right Side */}
+            {/* Right */}
+
             <div className="hidden lg:flex items-center gap-5 relative">
 
+              {/* Theme */}
+
+              <button
+                onClick={toggleTheme}
+                className={`${textClass} hover:text-orange-500 transition`}
+              >
+                {darkMode ? (
+                  <FaSun size={18} />
+                ) : (
+                  <FaMoon size={18} />
+                )}
+              </button>
+
               {/* Search */}
+
               <button
                 onClick={() => setSearchOpen(true)}
-                className="text-gray-300 hover:text-orange-500 transition"
+                className={`${textClass} hover:text-orange-500 transition`}
               >
                 <FaSearch size={18} />
               </button>
 
-              {/* Dark Mode */}
-              <button className="text-gray-300 hover:text-orange-500 transition">
-                <FaMoon size={18} />
-              </button>
+              {/* Login */}
 
               {!isLoggedIn ? (
                 <div className="relative">
 
                   <button
                     onClick={() => setLoginOpen(!loginOpen)}
-                    className="flex items-center gap-2 text-gray-300 hover:text-orange-500 transition"
+                    className={`${textClass} flex items-center gap-2 hover:text-orange-500 transition`}
                   >
                     <FaUserCircle size={20} />
                     Login
                   </button>
 
                   {loginOpen && (
-                    <div className="absolute right-0 mt-3 w-44 bg-slate-900 border border-slate-700 rounded-xl shadow-xl overflow-hidden">
-
+                    <div
+                      className={`absolute right-0 mt-3 w-44 rounded-xl overflow-hidden shadow-xl ${
+                        darkMode
+                          ? "bg-slate-900 border border-slate-700"
+                          : "bg-white border border-slate-200"
+                      }`}
+                    >
                       <Link
                         to="/admin/login"
                         onClick={() => setLoginOpen(false)}
-                        className="block px-5 py-3 text-gray-300 hover:bg-slate-800 hover:text-orange-500"
+                        className={`block px-5 py-3 ${
+                          darkMode
+                            ? "text-gray-300 hover:bg-slate-800"
+                            : "text-slate-700 hover:bg-slate-100"
+                        } hover:text-orange-500`}
                       >
                         Login
                       </Link>
@@ -123,14 +182,16 @@ const Navbar = () => {
                       <Link
                         to="/admin/register"
                         onClick={() => setLoginOpen(false)}
-                        className="block px-5 py-3 text-gray-300 hover:bg-slate-800 hover:text-orange-500"
+                        className={`block px-5 py-3 ${
+                          darkMode
+                            ? "text-gray-300 hover:bg-slate-800"
+                            : "text-slate-700 hover:bg-slate-100"
+                        } hover:text-orange-500`}
                       >
                         Register
                       </Link>
-
                     </div>
                   )}
-
                 </div>
               ) : (
                 <>
@@ -139,7 +200,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       isActive
                         ? "text-orange-500 font-semibold"
-                        : "text-gray-300 hover:text-orange-500 transition"
+                        : `${textClass} hover:text-orange-500`
                     }
                   >
                     Admin Panel
@@ -147,18 +208,26 @@ const Navbar = () => {
 
                   <button
                     onClick={handleLogout}
-                    className="text-gray-300 hover:text-orange-500 transition"
+                    className={`${textClass} hover:text-orange-500`}
                   >
                     Logout
                   </button>
                 </>
               )}
+
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile */}
+
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden text-white"
+              className={`lg:hidden ${
+                isHome && !scrolled
+                  ? "text-white"
+                  : darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
             >
               {open ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
@@ -167,13 +236,19 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
+
         <div
           className={`lg:hidden overflow-hidden transition-all duration-500 ${
             open ? "max-h-[500px]" : "max-h-0"
           }`}
         >
-          <div className="bg-slate-950/95 backdrop-blur-xl border-t border-slate-800">
-
+          <div
+            className={`${
+              darkMode
+                ? "bg-slate-950 border-t border-slate-800"
+                : "bg-white border-t border-slate-200"
+            }`}
+          >
             {navItems.map((item) => (
               <NavLink
                 key={item.name}
@@ -183,7 +258,9 @@ const Navbar = () => {
                   `block px-6 py-4 ${
                     isActive
                       ? "text-orange-500"
-                      : "text-gray-300 hover:text-orange-500"
+                      : darkMode
+                      ? "text-gray-300 hover:text-orange-500"
+                      : "text-slate-700 hover:text-orange-500"
                   }`
                 }
               >
@@ -191,46 +268,20 @@ const Navbar = () => {
               </NavLink>
             ))}
 
-            {!isLoggedIn ? (
-              <>
-                <NavLink
-                  to="/admin/login"
-                  onClick={() => setOpen(false)}
-                  className="block px-6 py-4 text-gray-300 hover:text-orange-500"
-                >
-                  Login
-                </NavLink>
+            {/* Mobile Theme */}
 
-                <NavLink
-                  to="/admin/register"
-                  onClick={() => setOpen(false)}
-                  className="block px-6 py-4 text-gray-300 hover:text-orange-500"
-                >
-                  Register
-                </NavLink>
-              </>
-            ) : (
-              <>
-                <NavLink
-                  to="/admin"
-                  onClick={() => setOpen(false)}
-                  className="block px-6 py-4 text-gray-300 hover:text-orange-500"
-                >
-                  Admin Panel
-                </NavLink>
-
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-6 py-4 text-gray-300 hover:text-orange-500"
-                >
-                  Logout
-                </button>
-              </>
-            )}
-
+            <button
+              onClick={toggleTheme}
+              className={`w-full text-left px-6 py-4 ${
+                darkMode
+                  ? "text-gray-300"
+                  : "text-slate-700"
+              }`}
+            >
+              {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+            </button>
           </div>
         </div>
-
       </header>
 
       <SearchModal

@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import FestivalCard from "../components/FestivalCard";
 import { getAllFestivals } from "../services/festivalService";
+import { useTheme } from "../context/ThemeContext";
 
 const Festivals = () => {
+  const { darkMode } = useTheme();
+
   const [festivals, setFestivals] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,8 +29,16 @@ const Festivals = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center bg-slate-950">
-          <h2 className="text-white text-2xl font-bold">
+        <div
+          className={`min-h-screen flex items-center justify-center ${
+            darkMode ? "bg-slate-950" : "bg-gray-50"
+          }`}
+        >
+          <h2
+            className={`text-2xl font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
             Loading Festivals...
           </h2>
         </div>
@@ -37,18 +48,32 @@ const Festivals = () => {
 
   return (
     <MainLayout>
-      <section className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] min-h-screen py-24">
+      <section
+        className={`min-h-screen py-24 transition-colors duration-300 ${
+          darkMode
+            ? "bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"
+            : "bg-gradient-to-b from-orange-50 via-white to-gray-50"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
               Spiritual Celebrations
             </span>
 
-            <h1 className="text-5xl font-bold text-white mt-5">
+            <h1
+              className={`mt-5 text-5xl font-bold ${
+                darkMode ? "text-white" : "text-slate-900"
+              }`}
+            >
               Temple Festivals
             </h1>
 
-            <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-lg">
+            <p
+              className={`mt-6 max-w-3xl mx-auto text-lg ${
+                darkMode ? "text-gray-400" : "text-slate-600"
+              }`}
+            >
               Discover India's grand temple festivals, sacred traditions,
               devotional celebrations, and cultural heritage.
             </p>
@@ -57,7 +82,7 @@ const Festivals = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {festivals.map((festival, index) => (
               <FestivalCard
-                key={festival.id}
+                key={festival._id}
                 festival={festival}
                 index={index}
               />

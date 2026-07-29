@@ -6,40 +6,64 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext";
 
 const Footer = () => {
+  const { darkMode } = useTheme();
+
   return (
-    <footer className="bg-slate-950 text-gray-300 mt-20">
+    <footer
+      className={`mt-20 transition-all duration-500 ${
+        darkMode
+          ? "bg-slate-950 border-t border-slate-800"
+          : "bg-white border-t border-slate-200 shadow-inner"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-16">
 
-      <div className="max-w-7xl mx-auto px-6 py-14">
-
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
 
           {/* Logo */}
 
           <div>
+            <div className="flex items-center gap-4">
 
-            <div className="flex items-center gap-3">
-
-              <div className="w-12 h-12 rounded-full bg-orange-600 flex items-center justify-center text-white text-2xl">
+              <div className="w-14 h-14 rounded-full bg-orange-600 flex items-center justify-center text-3xl text-white shadow-lg">
                 🛕
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2
+                  className={`text-2xl font-bold ${
+                    darkMode ? "text-white" : "text-slate-900"
+                  }`}
+                >
                   DivyaDarshan
                 </h2>
 
-                <p className="text-sm text-gray-400">
+                <p
+                  className={`text-sm mt-1 ${
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-500"
+                  }`}
+                >
                   Temple Heritage Portal
                 </p>
               </div>
 
             </div>
 
-            <p className="mt-5 leading-7 text-gray-400">
-              Explore India's spiritual heritage through authentic temple
-              information, festivals, pilgrimage routes, and cultural history.
+            <p
+              className={`mt-6 leading-8 ${
+                darkMode
+                  ? "text-slate-400"
+                  : "text-slate-600"
+              }`}
+            >
+              Discover India's timeless spiritual heritage through sacred
+              temples, festivals, pilgrimage routes, and rich cultural
+              traditions.
             </p>
 
           </div>
@@ -48,27 +72,36 @@ const Footer = () => {
 
           <div>
 
-            <h3 className="text-xl font-semibold text-white mb-5">
+            <h3
+              className={`text-xl font-semibold mb-6 ${
+                darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
+            >
               Quick Links
             </h3>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
 
-              <Link to="/" className="block hover:text-orange-500">
-                Home
-              </Link>
-
-              <Link to="/temples" className="block hover:text-orange-500">
-                Temples
-              </Link>
-
-              <Link to="/festivals" className="block hover:text-orange-500">
-                Festivals
-              </Link>
-
-              <Link to="/routes" className="block hover:text-orange-500">
-                Pilgrimage Routes
-              </Link>
+              {[
+                ["Home", "/"],
+                ["Temples", "/temples"],
+                ["Festivals", "/festivals"],
+                ["Pilgrimage Routes", "/routes"],
+              ].map(([title, link]) => (
+                <Link
+                  key={title}
+                  to={link}
+                  className={`block transition duration-300 hover:text-orange-500 hover:translate-x-1 ${
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-600"
+                  }`}
+                >
+                  {title}
+                </Link>
+              ))}
 
             </div>
 
@@ -78,25 +111,54 @@ const Footer = () => {
 
           <div>
 
-            <h3 className="text-xl font-semibold text-white mb-5">
+            <h3
+              className={`text-xl font-semibold mb-6 ${
+                darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
+            >
               Resources
             </h3>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
 
-              <Link to="/about" className="block hover:text-orange-500">
-                About
-              </Link>
+              {[
+                ["About", "/about"],
+                ["Contact", "/contact"],
+              ].map(([title, link]) => (
+                <Link
+                  key={title}
+                  to={link}
+                  className={`block transition duration-300 hover:text-orange-500 hover:translate-x-1 ${
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-600"
+                  }`}
+                >
+                  {title}
+                </Link>
+              ))}
 
-              <Link to="/contact" className="block hover:text-orange-500">
-                Contact
-              </Link>
-
-              <a href="#" className="block hover:text-orange-500">
+              <a
+                href="#"
+                className={`block transition duration-300 hover:text-orange-500 hover:translate-x-1 ${
+                  darkMode
+                    ? "text-slate-400"
+                    : "text-slate-600"
+                }`}
+              >
                 Privacy Policy
               </a>
 
-              <a href="#" className="block hover:text-orange-500">
+              <a
+                href="#"
+                className={`block transition duration-300 hover:text-orange-500 hover:translate-x-1 ${
+                  darkMode
+                    ? "text-slate-400"
+                    : "text-slate-600"
+                }`}
+              >
                 Terms & Conditions
               </a>
 
@@ -108,27 +170,43 @@ const Footer = () => {
 
           <div>
 
-            <h3 className="text-xl font-semibold text-white mb-5">
+            <h3
+              className={`text-xl font-semibold mb-6 ${
+                darkMode
+                  ? "text-white"
+                  : "text-slate-900"
+              }`}
+            >
               Follow Us
             </h3>
 
+            <p
+              className={`mb-6 ${
+                darkMode
+                  ? "text-slate-400"
+                  : "text-slate-600"
+              }`}
+            >
+              Stay connected for temple updates, festivals, and spiritual
+              journeys.
+            </p>
+
             <div className="flex gap-4">
 
-              <button className="w-11 h-11 rounded-full bg-slate-800 hover:bg-orange-600 transition">
-                <FaFacebookF className="mx-auto mt-3" />
-              </button>
-
-              <button className="w-11 h-11 rounded-full bg-slate-800 hover:bg-orange-600 transition">
-                <FaInstagram className="mx-auto mt-3" />
-              </button>
-
-              <button className="w-11 h-11 rounded-full bg-slate-800 hover:bg-orange-600 transition">
-                <FaLinkedinIn className="mx-auto mt-3" />
-              </button>
-
-              <button className="w-11 h-11 rounded-full bg-slate-800 hover:bg-orange-600 transition">
-                <FaYoutube className="mx-auto mt-3" />
-              </button>
+              {[FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube].map(
+                (Icon, index) => (
+                  <button
+                    key={index}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+                      darkMode
+                        ? "bg-slate-900 border border-slate-700 hover:bg-orange-600 hover:border-orange-600 text-white"
+                        : "bg-slate-100 border border-slate-200 hover:bg-orange-600 hover:border-orange-600 hover:text-white text-slate-700"
+                    }`}
+                  >
+                    <Icon />
+                  </button>
+                )
+              )}
 
             </div>
 
@@ -136,12 +214,26 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-slate-800 mt-10 pt-6 text-center text-gray-500">
-          © 2026 DivyaDarshan. All Rights Reserved.
+        {/* Bottom */}
+
+        <div
+          className={`mt-14 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 ${
+            darkMode
+              ? "border-slate-800 text-slate-500"
+              : "border-slate-200 text-slate-500"
+          }`}
+        >
+          <p>
+            © 2026 <span className="font-semibold text-orange-500">DivyaDarshan</span>.
+            All Rights Reserved.
+          </p>
+
+          <p className="text-sm">
+            Made with ❤️ to preserve India's spiritual heritage.
+          </p>
         </div>
 
       </div>
-
     </footer>
   );
 };

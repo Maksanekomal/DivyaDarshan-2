@@ -18,13 +18,12 @@ import EditTemple from "./pages/Admin/EditTemple";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminRegister from "./pages/Admin/AdminRegister";
 import ContactMessages from "./pages/Admin/ContactMessages";
-
-// Protected Route
-import ProtectedRoute from "./components/ProtectedRoute";
-
 import ManageFestivals from "./pages/Admin/ManageFestivals";
 import AddFestival from "./pages/Admin/AddFestival";
 import EditFestival from "./pages/Admin/EditFestival";
+
+// Protected Route
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
       <Routes>
 
         {/* Public Routes */}
-
         <Route path="/" element={<Home />} />
 
         <Route path="/temples" element={<Temples />} />
@@ -48,12 +46,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
 
         {/* Authentication */}
-
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/register" element={<AdminRegister />} />
 
-        {/* Protected Admin Routes */}
-
+        {/* Protected Routes */}
         <Route
           path="/admin"
           element={
@@ -91,31 +87,31 @@ function App() {
         />
 
         <Route
-  path="/admin/manage-festivals"
-  element={
-    <ProtectedRoute>
-      <ManageFestivals />
-    </ProtectedRoute>
-  }
-/>
+          path="/admin/manage-festivals"
+          element={
+            <ProtectedRoute>
+              <ManageFestivals />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/admin/add-festival"
-  element={
-    <ProtectedRoute>
-      <AddFestival />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/admin/add-festival"
+          element={
+            <ProtectedRoute>
+              <AddFestival />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/admin/edit-festival/:id"
-  element={
-    <ProtectedRoute>
-      <EditFestival />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/admin/edit-festival/:id"
+          element={
+            <ProtectedRoute>
+              <EditFestival />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>
