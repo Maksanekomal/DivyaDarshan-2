@@ -5,6 +5,7 @@ import {
   FaEnvelope,
   FaClock,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
 import contactImage from "../assets/contact/contact-info.jpg";
 
 const contactDetails = [
@@ -16,7 +17,7 @@ const contactDetails = [
   },
   {
     icon: <FaPhoneAlt />,
-    title: "Phone",
+    title: "+91 98765 43210",
     value: "+91 98765 43210",
     link: "tel:+919876543210",
   },
@@ -36,70 +37,99 @@ const contactDetails = [
 
 const ContactInfo = () => {
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Image */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
             <img
               src={contactImage}
               alt="Contact"
-              className="rounded-3xl shadow-2xl object-cover w-full h-[550px]"
+              className="w-full h-[560px] object-cover rounded-3xl shadow-2xl border border-gray-200 dark:border-slate-700"
             />
-          </div>
 
-          {/* Details */}
-          <div>
+            <div className="absolute bottom-6 left-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-xl border border-orange-100 dark:border-slate-700 px-6 py-4">
+              <h3 className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                We're Here
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Happy to assist you anytime.
+              </p>
+            </div>
+          </motion.div>
 
-            <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+
+            <span className="inline-block px-5 py-2 rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 uppercase tracking-[4px] font-semibold">
               Get In Touch
             </span>
 
-            <h2 className="text-5xl font-bold text-white mt-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-6 leading-tight">
               We'd Love To Hear From You
             </h2>
 
-            <p className="text-gray-400 mt-6 leading-8">
+            <p className="text-gray-600 dark:text-gray-300 mt-6 leading-8 text-lg">
               Whether you're planning a pilgrimage, looking for temple
-              information, or have suggestions for improving DivyaDarshan,
-              we're here to help.
+              information, or have suggestions to improve DivyaDarshan,
+              our team is always ready to help and guide you.
             </p>
 
             <div className="grid gap-6 mt-10">
 
               {contactDetails.map((item, index) => {
-                const CardWrapper = item.link ? "a" : "div";
+                const Wrapper = item.link ? "a" : "div";
 
                 return (
-                  <CardWrapper
+                  <Wrapper
                     key={index}
                     href={item.link || undefined}
                     target={item.title === "Location" ? "_blank" : undefined}
-                    rel={item.title === "Location" ? "noreferrer" : undefined}
-                    className="flex items-center gap-5 bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-orange-500 transition cursor-pointer"
+                    rel={
+                      item.title === "Location"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                   >
-                    <div className="w-14 h-14 rounded-xl bg-orange-600 flex items-center justify-center text-white text-xl">
-                      {item.icon}
-                    </div>
+                    <motion.div
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      transition={{ duration: 0.25 }}
+                      className="group flex items-center gap-5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-md hover:shadow-xl hover:border-orange-300 dark:hover:border-orange-500 transition-all"
+                    >
+                      <div className="w-16 h-16 rounded-2xl bg-orange-100 dark:bg-orange-900/40 group-hover:bg-orange-600 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:text-white text-2xl transition-all duration-300">
+                        {item.icon}
+                      </div>
 
-                    <div>
-                      <h3 className="text-white font-semibold text-lg">
-                        {item.title}
-                      </h3>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                          {item.title}
+                        </h3>
 
-                      <p className="text-gray-400">
-                        {item.value}
-                      </p>
-                    </div>
-                  </CardWrapper>
+                        <p className="text-gray-600 dark:text-gray-300 mt-1">
+                          {item.value}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </Wrapper>
                 );
               })}
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

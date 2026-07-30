@@ -57,43 +57,57 @@ const features = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-6">
 
+        {/* Heading */}
         <div className="text-center mb-16">
-          <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
+
+          <span className="inline-block px-5 py-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300 font-semibold uppercase tracking-[4px]">
             Why Choose Us
           </span>
 
-          <h2 className="text-5xl font-bold text-white mt-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-6">
             Why Choose DivyaDarshan?
           </h2>
 
-          <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-lg">
-            Everything you need to explore India's rich spiritual heritage in one
-            modern and easy-to-use platform.
+          <p className="text-gray-600 dark:text-gray-300 mt-6 max-w-3xl mx-auto text-lg leading-8">
+            Everything you need to explore India's rich spiritual heritage
+            through one modern, informative, and easy-to-use platform.
           </p>
+
         </div>
 
+        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
           {features.map((feature, index) => (
             <Link key={index} to={feature.link}>
               <motion.div
-                whileHover={{ y: -8 }}
-                className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl hover:border-orange-500 transition-all duration-300 cursor-pointer h-full"
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                }}
+                transition={{ duration: 0.3 }}
+                className="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-3xl shadow-lg hover:shadow-2xl hover:border-orange-300 dark:hover:border-orange-500 transition-all duration-300 p-8 h-full"
               >
-                <div className="w-16 h-16 rounded-2xl bg-orange-600 flex items-center justify-center text-white text-3xl mb-6">
+
+                <div className="w-16 h-16 rounded-2xl bg-orange-100 dark:bg-orange-900/30 group-hover:bg-orange-600 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:text-white text-3xl transition-all duration-300 mb-6">
                   {feature.icon}
                 </div>
 
-                <h3 className="text-2xl text-white font-bold mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 mb-4 transition-colors">
                   {feature.title}
                 </h3>
 
-                <p className="text-gray-400 leading-8">
+                <p className="text-gray-600 dark:text-gray-300 leading-8">
                   {feature.description}
                 </p>
+
+                <div className="mt-6 text-orange-600 dark:text-orange-400 font-semibold opacity-0 group-hover:opacity-100 transition duration-300">
+                  Learn More →
+                </div>
+
               </motion.div>
             </Link>
           ))}

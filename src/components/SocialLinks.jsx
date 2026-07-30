@@ -1,54 +1,197 @@
 
+import { motion } from "framer-motion";
 import {
   FaGithub,
   FaLinkedin,
   FaEnvelope,
 } from "react-icons/fa";
 
+const socialLinks = [
+  {
+    icon: <FaGithub />,
+    title: "GitHub",
+    href: "https://github.com/",
+  },
+  {
+    icon: <FaLinkedin />,
+    title: "LinkedIn",
+    href: "https://linkedin.com/",
+  },
+  {
+    icon: <FaEnvelope />,
+    title: "Email",
+    href: "mailto:support@divyadarshan.in",
+  },
+];
+
 const SocialLinks = () => {
   return (
-    <section className="py-20 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section
+      className="
+        py-20
+        bg-gradient-to-b
+        from-white
+        via-orange-50
+        to-white
 
-        <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
-          Connect With Us
-        </span>
+        dark:from-slate-950
+        dark:via-slate-900
+        dark:to-slate-950
 
-        <h2 className="text-5xl font-bold text-white mt-4">
-          Follow DivyaDarshan
-        </h2>
+        transition-colors
+        duration-500
+      "
+    >
+      <div className="max-w-7xl mx-auto px-6">
 
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          Stay connected for updates, new temple information, and future
-          features.
-        </p>
+        {/* Heading */}
+        <div className="text-center">
 
-        <div className="flex justify-center gap-8 mt-12">
+          <span
+            className="
+              inline-block
+              px-5
+              py-2
+              rounded-full
 
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl text-white hover:bg-orange-600 transition"
+              bg-orange-100
+              dark:bg-orange-500/10
+
+              text-orange-600
+              dark:text-orange-400
+
+              font-semibold
+              uppercase
+              tracking-[4px]
+            "
           >
-            <FaGithub />
-          </a>
+            Connect With Us
+          </span>
 
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl text-white hover:bg-orange-600 transition"
-          >
-            <FaLinkedin />
-          </a>
 
-          <a
-            href="mailto:support@divyadarshan.in"
-            className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl text-white hover:bg-orange-600 transition"
+          <h2
+            className="
+              text-4xl
+              md:text-5xl
+              font-bold
+
+              text-gray-900
+              dark:text-white
+
+              mt-6
+              transition-colors
+            "
           >
-            <FaEnvelope />
-          </a>
+            Follow DivyaDarshan
+          </h2>
+
+
+          <p
+            className="
+              text-gray-600
+              dark:text-gray-300
+
+              mt-6
+              max-w-2xl
+              mx-auto
+              text-lg
+              leading-8
+            "
+          >
+            Stay connected for the latest temple updates, festivals,
+            pilgrimage guides, and exciting new features.
+          </p>
+
+        </div>
+
+
+        {/* Social Icons */}
+        <div className="flex flex-wrap justify-center gap-8 mt-14">
+
+          {socialLinks.map((social, index) => (
+
+            <motion.a
+              key={index}
+              href={social.href}
+              target={
+                social.href.startsWith("http")
+                  ? "_blank"
+                  : undefined
+              }
+              rel={
+                social.href.startsWith("http")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
+              whileHover={{
+                y: -8,
+                scale: 1.08,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="group flex flex-col items-center"
+            >
+
+              <div
+                className="
+                  w-20
+                  h-20
+                  rounded-full
+
+                  bg-white
+                  dark:bg-slate-800
+
+                  border
+                  border-gray-200
+                  dark:border-slate-700
+
+                  shadow-lg
+                  dark:shadow-black/30
+
+                  flex
+                  items-center
+                  justify-center
+
+                  text-3xl
+
+                  text-orange-600
+                  dark:text-orange-400
+
+                  group-hover:bg-orange-600
+                  group-hover:text-white
+
+                  group-hover:shadow-2xl
+
+                  transition-all
+                  duration-300
+                "
+              >
+                {social.icon}
+              </div>
+
+
+              <span
+                className="
+                  mt-4
+
+                  text-gray-700
+                  dark:text-gray-200
+
+                  font-semibold
+
+                  group-hover:text-orange-600
+                  dark:group-hover:text-orange-400
+
+                  transition-colors
+                "
+              >
+                {social.title}
+              </span>
+
+            </motion.a>
+
+          ))}
 
         </div>
 

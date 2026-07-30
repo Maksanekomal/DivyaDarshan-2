@@ -6,37 +6,35 @@ import visionImage from "../assets/about/vision.jpg";
 
 const MissionVision = () => {
   return (
-    <section className="py-24">
-
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-6">
 
+        {/* Section Heading */}
         <div className="text-center mb-16">
-
-          <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
+          <span className="inline-block px-5 py-2 rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 font-semibold uppercase tracking-[4px]">
             Our Purpose
           </span>
 
-          <h2 className="text-5xl font-bold text-white mt-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-6">
             Mission & Vision
           </h2>
 
-          <p className="text-gray-400 max-w-3xl mx-auto mt-6 text-lg">
-            DivyaDarshan is dedicated to preserving India's spiritual heritage
-            while making temple information easily accessible through modern
-            technology.
+          <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mt-6 text-lg leading-8">
+            DivyaDarshan is committed to preserving India's rich spiritual
+            heritage while making temple information accessible through a
+            modern, reliable, and user-friendly digital platform.
           </p>
-
         </div>
 
+        {/* Cards */}
         <div className="grid lg:grid-cols-2 gap-10">
 
           {/* Mission Card */}
-
           <motion.div
             whileHover={{ y: -8 }}
-            className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 shadow-xl"
+            transition={{ duration: 0.3 }}
+            className="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300"
           >
-
             <img
               src={missionImage}
               alt="Mission"
@@ -45,29 +43,31 @@ const MissionVision = () => {
 
             <div className="p-8">
 
-              <h3 className="text-3xl font-bold text-orange-500 mb-5">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/40 mb-5">
+                <span className="text-2xl">🎯</span>
+              </div>
+
+              <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-5">
                 Our Mission
               </h3>
 
-              <p className="text-gray-300 leading-8">
-                To create a reliable digital platform where devotees,
-                pilgrims, and travelers can discover authentic information
-                about India's temples, festivals, rituals, and pilgrimage
-                routes. We aim to preserve cultural heritage while making
-                spiritual journeys easier and more meaningful.
+              <p className="text-gray-700 dark:text-gray-300 leading-8">
+                To create a trusted digital platform where devotees, pilgrims,
+                and travelers can discover authentic information about India's
+                temples, festivals, rituals, and pilgrimage routes. We strive
+                to preserve cultural heritage while making every spiritual
+                journey simpler, meaningful, and accessible.
               </p>
 
             </div>
-
           </motion.div>
 
           {/* Vision Card */}
-
           <motion.div
             whileHover={{ y: -8 }}
-            className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 shadow-xl"
+            transition={{ duration: 0.3 }}
+            className="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300"
           >
-
             <img
               src={visionImage}
               alt="Vision"
@@ -76,25 +76,27 @@ const MissionVision = () => {
 
             <div className="p-8">
 
-              <h3 className="text-3xl font-bold text-orange-500 mb-5">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/40 mb-5">
+                <span className="text-2xl">🌏</span>
+              </div>
+
+              <h3 className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-5">
                 Our Vision
               </h3>
 
-              <p className="text-gray-300 leading-8">
+              <p className="text-gray-700 dark:text-gray-300 leading-8">
                 To become India's most trusted temple and pilgrimage portal by
                 combining technology with spirituality. Our vision is to help
-                every visitor explore India's sacred destinations through one
-                comprehensive, user-friendly platform.
+                millions of devotees explore sacred destinations through one
+                comprehensive, informative, and beautifully designed platform.
               </p>
 
             </div>
-
           </motion.div>
 
         </div>
 
       </div>
-
     </section>
   );
 };

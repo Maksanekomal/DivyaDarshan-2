@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { FaPaperPlane } from "react-icons/fa";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -26,10 +27,7 @@ const ContactForm = () => {
     setLoading(true);
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/contact",
-        formData
-      );
+      await axios.post("http://localhost:5000/api/contact", formData);
 
       alert("Message sent successfully!");
 
@@ -39,7 +37,6 @@ const ContactForm = () => {
         subject: "",
         message: "",
       });
-
     } catch (error) {
       alert(
         error.response?.data?.message ||
@@ -51,30 +48,36 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="py-24">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="py-20">
+      <div className="max-w-5xl mx-auto px-6">
 
-        <div className="text-center mb-12">
-          <span className="uppercase tracking-[5px] text-orange-500 font-semibold">
+        {/* Heading */}
+        <div className="text-center mb-14">
+
+          <span className="inline-block px-5 py-2 rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 font-semibold uppercase tracking-[4px]">
             Send Message
           </span>
 
-          <h2 className="text-5xl font-bold text-white mt-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-6">
             Contact Us
           </h2>
 
-          <p className="text-gray-400 mt-6">
-            Have a question or suggestion? Fill out the form below and we'll
-            get back to you.
+          <p className="text-gray-600 dark:text-gray-300 mt-6 text-lg max-w-2xl mx-auto">
+            Have a question, suggestion, or feedback? Fill out the
+            form below and our team will get back to you as soon as
+            possible.
           </p>
+
         </div>
 
+        {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="bg-slate-900 border border-slate-800 rounded-3xl p-10 shadow-xl"
+          className="bg-white dark:bg-slate-900 rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl p-10"
         >
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -86,7 +89,7 @@ const ContactForm = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="bg-slate-800 border border-slate-700 rounded-xl px-5 py-4 text-white outline-none focus:border-orange-500"
+              className="w-full rounded-2xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 px-5 py-4 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-all focus:border-orange-500 focus:ring-4 focus:ring-orange-100 dark:focus:ring-orange-900/30"
             />
 
             <input
@@ -96,7 +99,7 @@ const ContactForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-slate-800 border border-slate-700 rounded-xl px-5 py-4 text-white outline-none focus:border-orange-500"
+              className="w-full rounded-2xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 px-5 py-4 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-all focus:border-orange-500 focus:ring-4 focus:ring-orange-100 dark:focus:ring-orange-900/30"
             />
 
           </div>
@@ -108,7 +111,7 @@ const ContactForm = () => {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full mt-6 bg-slate-800 border border-slate-700 rounded-xl px-5 py-4 text-white outline-none focus:border-orange-500"
+            className="w-full mt-6 rounded-2xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 px-5 py-4 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-all focus:border-orange-500 focus:ring-4 focus:ring-orange-100 dark:focus:ring-orange-900/30"
           />
 
           <textarea
@@ -118,14 +121,15 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full mt-6 bg-slate-800 border border-slate-700 rounded-xl px-5 py-4 text-white outline-none focus:border-orange-500 resize-none"
+            className="w-full mt-6 rounded-2xl border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 px-5 py-4 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none resize-none transition-all focus:border-orange-500 focus:ring-4 focus:ring-orange-100 dark:focus:ring-orange-900/30"
           />
 
           <button
             type="submit"
             disabled={loading}
-            className="mt-8 w-full bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 transition py-4 rounded-xl text-white font-semibold text-lg"
+            className="mt-8 w-full flex items-center justify-center gap-3 bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 transition-all duration-300 py-4 rounded-2xl text-white font-semibold text-lg shadow-lg hover:shadow-xl"
           >
+            <FaPaperPlane />
             {loading ? "Sending..." : "Send Message"}
           </button>
 

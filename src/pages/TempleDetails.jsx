@@ -33,11 +33,24 @@ const TempleDetails = () => {
     fetchTemple();
   }, [id]);
 
+
   if (loading) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center bg-slate-950">
-          <h2 className="text-white text-2xl font-bold">
+        <div className="
+          min-h-screen 
+          flex 
+          items-center 
+          justify-center
+          bg-gray-50
+          dark:bg-slate-950
+        ">
+          <h2 className="
+            text-2xl 
+            font-bold
+            text-gray-900
+            dark:text-white
+          ">
             Loading Temple...
           </h2>
         </div>
@@ -45,11 +58,24 @@ const TempleDetails = () => {
     );
   }
 
+
   if (!temple) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center bg-slate-950">
-          <h1 className="text-5xl font-bold text-white">
+        <div className="
+          min-h-screen 
+          flex 
+          items-center 
+          justify-center
+          bg-gray-50
+          dark:bg-slate-950
+        ">
+          <h1 className="
+            text-5xl 
+            font-bold
+            text-gray-900
+            dark:text-white
+          ">
             Temple Not Found
           </h1>
         </div>
@@ -57,15 +83,33 @@ const TempleDetails = () => {
     );
   }
 
+
   return (
     <MainLayout>
-      <div className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827]">
+      <div
+        className="
+          min-h-screen
+          bg-gray-50
+          dark:bg-gradient-to-b
+          dark:from-[#020617]
+          dark:via-[#0f172a]
+          dark:to-[#111827]
+          transition-colors
+          duration-300
+        "
+      >
         <TempleHero temple={temple} />
+
         <TempleQuickInfo temple={temple} />
+
         <TempleHistory temple={temple} />
+
         <TempleFestivals temple={temple} />
+
         <TempleTravel temple={temple} />
+
         <TempleNearby temple={temple} />
+
       </div>
     </MainLayout>
   );

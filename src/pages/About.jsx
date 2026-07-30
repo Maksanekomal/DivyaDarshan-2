@@ -9,18 +9,18 @@ import DeveloperSection from "../components/DeveloperSection";
 const About = () => {
   return (
     <MainLayout>
-
-      <div className="bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] min-h-screen">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
 
         <AboutHero />
 
-        <MissionVision />
-        <WhyChooseUs />
-        <ProjectStats />
-        <DeveloperSection />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-24">
+          <MissionVision />
+          <WhyChooseUs />
+          <ProjectStats />
+          <DeveloperSection />
+        </div>
 
       </div>
-
     </MainLayout>
   );
 };
