@@ -4,7 +4,6 @@ import { useTheme } from "../context/ThemeContext";
 import {
   FaMapMarkerAlt,
   FaPlaceOfWorship,
-  FaArrowRight,
 } from "react-icons/fa";
 
 const TempleNearby = ({ temple }) => {
@@ -45,9 +44,7 @@ const TempleNearby = ({ temple }) => {
       {/* Cards */}
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-
         {temple.nearbyPlaces?.map((place, index) => (
-
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 30 }}
@@ -70,7 +67,6 @@ const TempleNearby = ({ temple }) => {
             {/* Header */}
 
             <div className="p-8">
-
               <div className="w-16 h-16 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 text-2xl">
                 <FaPlaceOfWorship />
               </div>
@@ -89,7 +85,6 @@ const TempleNearby = ({ temple }) => {
                 }`}
               >
                 <FaMapMarkerAlt className="text-orange-500" />
-
                 <span>Near {temple.name}</span>
               </div>
 
@@ -102,32 +97,23 @@ const TempleNearby = ({ temple }) => {
                 rich history, architecture, traditions, and peaceful
                 atmosphere.
               </p>
-
             </div>
 
             {/* Footer */}
 
             <div
-              className={`px-8 py-5 border-t flex items-center justify-between ${
+              className={`px-8 py-5 border-t text-center ${
                 darkMode
                   ? "border-slate-800 bg-slate-950/50"
                   : "border-slate-200 bg-slate-50"
               }`}
             >
-              <span className="text-sm font-medium text-orange-500">
+              <span className="text-base font-semibold text-orange-500">
                 Nearby Temple
               </span>
-
-              <button className="flex items-center gap-2 font-semibold text-orange-500 hover:gap-4 transition-all">
-                Explore
-                <FaArrowRight />
-              </button>
             </div>
-
           </motion.div>
-
         ))}
-
       </div>
     </section>
   );

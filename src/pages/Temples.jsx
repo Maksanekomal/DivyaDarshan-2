@@ -10,8 +10,11 @@ import { motion } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
 import TempleCard from "../components/TempleCard";
 import TempleFilters from "../components/TempleFilters";
+import { useTheme } from "../context/ThemeContext";
 
 const Temples = () => {
+  const { darkMode } = useTheme();
+
   const [templesData, setTemplesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +28,6 @@ const Temples = () => {
   );
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Check if admin is logged in
   const isLoggedIn = !!localStorage.getItem("adminToken");
 
   const fetchTemples = async () => {
@@ -43,13 +45,12 @@ const Temples = () => {
     fetchTemples();
   }, []);
 
-  // Delete temple
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this temple?")) {
       try {
         await deleteTemple(id);
         alert("Temple deleted successfully!");
-        fetchTemples(); // refresh list
+        fetchTemples();
       } catch (error) {
         console.error(error);
         alert("Error deleting temple");
@@ -57,7 +58,6 @@ const Temples = () => {
     }
   };
 
-  // Filter temples
   const filteredTemples = templesData
     .filter((temple) => {
       const searchValue = search.toLowerCase().trim();
@@ -83,8 +83,16 @@ const Temples = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center bg-slate-950">
-          <h2 className="text-white text-2xl font-bold">
+        <div
+          className={`min-h-screen flex items-center justify-center transition-all duration-300 ${
+            darkMode ? "bg-slate-950" : "bg-gray-50"
+          }`}
+        >
+          <h2
+            className={`text-2xl font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
             Loading Temples...
           </h2>
         </div>
@@ -94,7 +102,13 @@ const Temples = () => {
 
   return (
     <MainLayout>
-      <section className="min-h-screen bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827] py-20">
+      <section
+        className={`min-h-screen py-20 transition-all duration-300 ${
+          darkMode
+            ? "bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#111827]"
+            : "bg-gradient-to-b from-orange-50 via-white to-orange-100"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6">
 
           {/* Heading */}
@@ -107,11 +121,19 @@ const Temples = () => {
               Explore
             </span>
 
-            <h1 className="text-5xl md:text-6xl font-bold text-white mt-4">
+            <h1
+              className={`text-5xl md:text-6xl font-bold mt-4 ${
+                darkMode ? "text-white" : "text-slate-900"
+              }`}
+            >
               Sacred Temples of India
             </h1>
 
-            <p className="text-gray-300 max-w-3xl mx-auto mt-6 text-lg">
+            <p
+              className={`max-w-3xl mx-auto mt-6 text-lg ${
+                darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Discover India's most revered temples, rich history,
               divine traditions, pilgrimage routes and timeless
               spiritual heritage.
@@ -131,7 +153,11 @@ const Temples = () => {
 
           {/* Count + Add Button */}
           <div className="flex justify-between items-center mb-10">
-            <h2 className="text-white text-xl font-semibold">
+            <h2
+              className={`text-xl font-semibold ${
+                darkMode ? "text-white" : "text-slate-900"
+              }`}
+            >
               {filteredTemples.length} Temple
               {filteredTemples.length > 1 ? "s" : ""} Found
             </h2>
@@ -153,11 +179,8 @@ const Temples = () => {
           >
             {filteredTemples.map((temple) => (
               <div key={temple._id} className="relative">
-
-                {/* Temple Card */}
                 <TempleCard temple={temple} />
 
-                {/* Admin Actions */}
                 {isLoggedIn && (
                   <div className="absolute top-4 right-4 flex gap-2 z-10">
                     <Link
@@ -182,11 +205,19 @@ const Temples = () => {
           {/* Empty State */}
           {filteredTemples.length === 0 && (
             <div className="text-center py-24">
-              <h2 className="text-3xl text-white font-bold">
+              <h2
+                className={`text-3xl font-bold ${
+                  darkMode ? "text-white" : "text-slate-900"
+                }`}
+              >
                 No Temple Found
               </h2>
 
-              <p className="text-gray-400 mt-4">
+              <p
+                className={`mt-4 ${
+                  darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 Try changing your search or filters.
               </p>
             </div>
