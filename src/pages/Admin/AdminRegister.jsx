@@ -23,9 +23,9 @@ const AdminRegister = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/admin/register",
-        { email, password }
-      );
+  `${import.meta.env.VITE_API_URL}/api/admin/register`,
+  { email, password }
+);
 
       alert("Registration successful! Please login with your new account.");
 
